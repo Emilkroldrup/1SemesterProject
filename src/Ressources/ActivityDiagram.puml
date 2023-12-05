@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Logger ind;
+:Åbner forsiden;
+:Gaveindkøb;
+if (Har ønskeliste(r)) then (yes)
+    switch (Viser ens ønskeliste(r))
+        case(Åben ønskeliste)
+            :Åben ønskeliste;
+        case(Fjern ønskeliste)
+            :Fjern ønskeliste;
+            :Åbner forside;
+            end
+        case(Opret ønskeliste)
+            :Opretter ønskeliste;
+    endswitch
+
+else (no)
+    :Opret ønskeliste;
+    :Skriv navn på ønskeliste;
+    endif
+switch (Åbner ønskeliste)
+    case(Tilføj ønske)
+        :Tilføjer ønske til ønskeliste;
+    case(Fjern ønske)
+        :Fjerner ønske fra ønskeliste;
+    case(Rediger ønske)
+        :Laver ændringer til et ønske;
+    case(Søg for ønske)
+        :Søger efter ønske;
+endswitch
+stop
+
+@enduml
