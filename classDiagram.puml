@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+@startuml
+'https://plantuml.com/class-diagram
+
+class Bruger {
+   int brugerId;
+   String navn;
+   String email;
+
+   login();
+}
+class Wish {
+   int wishId;
+   String oprettelsesDato;
+   String indhold;
+   String modtagerNavn;
+
+   opretØnske();
+}
+class Wishlist {
+    int wishListId;
+    String navn;
+    String oprettelsesDato;
+    ArrayList<Wish> wishList = new ArrayList<>();
+
+    vælgØnskeListe();
+    seAlleØnskerPåListen();
+    tilføjØnskeTilListe();
+    fjernØnskeFraListe();
+    købt();
+}
+class DbSql {
+    Connection connection;
+    Statement stmt;
+}
+Wishlist "1" o-- "many" Wish : aggregation
+   DbSql --> Wishlist : One way association
+   Bruger <-- DbSql : One way association
+   Bruger -- Wishlist
+
+@enduml
+
+
+@enduml
