@@ -1,3 +1,5 @@
+package com.example.semesterproject;
+
 public class Wish {
     private String dateCreated;
     private String recipient;

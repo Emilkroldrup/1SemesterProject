@@ -1,7 +1,6 @@
+package com.example.semesterproject;
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class DbSql {
 
@@ -190,7 +189,7 @@ public class DbSql {
 
         return wishId;
     }
-/*
+
     public String fetchPasswordByMail(String mail){
         String password = null;
         String sql = "SELECT kodeord FROM bruger WHERE email = ?";
@@ -203,7 +202,7 @@ public class DbSql {
                     password = rs.getString("kodeord");
                 }
             }
-        } catch (SQLExecption throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return password;
@@ -213,8 +212,5 @@ public class DbSql {
         String password = fetchPasswordByMail(mail);
         return password != null && password.equals(pass);
     }
-
- */
-
 }
 
