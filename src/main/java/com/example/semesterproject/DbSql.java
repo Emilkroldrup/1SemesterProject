@@ -190,7 +190,7 @@ public class DbSql {
         return wishId;
     }
 
-    public String fetchPasswordByMail(String mail){
+    public boolean fetchPasswordByMail(String mail, String pass){
         String password = null;
         String sql = "SELECT kodeord FROM bruger WHERE email = ?";
 
@@ -205,12 +205,8 @@ public class DbSql {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return password;
-    }
-
-    public boolean isPasswordMatch(String mail, String pass){
-        String password = fetchPasswordByMail(mail);
         return password != null && password.equals(pass);
     }
+
 }
 

@@ -1,5 +1,7 @@
 package com.example.semesterproject;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -26,28 +28,21 @@ public class SceneController2 {
     @FXML
     private Label Wishlist;
 
-
     @FXML
     private BorderPane Layout2;
 
     @FXML
     private Button Back;
+
     @FXML
     private Button add;
 
-
-
     @FXML private VBox vbox;
-
     public int xpos1 = -38;
     public int ypos1 = 45;
-
     public int xpos2 = 147;
     public int ypos2 = 2;
-
-
     public Button NavnWishList;
-
     public ChoiceBox<String> Mulighedbox;
     public String[] Muligheder = {"Edit", "Delete"};
 
@@ -57,28 +52,22 @@ public class SceneController2 {
 
     @FXML
     protected void onHelloButtonClick1( String ButtonNavn) throws IOException {
-
-
-
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));
         Parent root = loader.load();
 
-        //Her kalder jeg på knappen og loadaer den
+        //Her kalder jeg på scene3 controller og loader den
         SceneController3 scene3Controller = loader.getController();
-        //Loader bare Navnet på knappen og sætter det ind på scene3's controller
+        //Loader bare Navnet på knappen og sætter det ind på scene3's controller. <
+        // Jeg kalder også på scene3s metode setbuttontext og indsætter buttonnavn værdien i dens parameter
         scene3Controller.setButtonText(ButtonNavn);
 
         Scene scene3 = new Scene(root);
         Stage stage = (Stage) Layout2.getScene().getWindow();
         stage.setScene(scene3);
-
-
     }
 
     @FXML
-    private void addNewButton()  {
-
+    private void addNewButton() {
         //Her oprettet man et textinput dialog, som brugeren skal skrive navnet på
         TextInputDialog Navntilknap = new TextInputDialog();
         //Navn på textdialog
@@ -89,55 +78,55 @@ public class SceneController2 {
         Navntilknap.setContentText("Navn:");
 
         //Her bruger vi bare showandwait,altså så brugeren kan få skrevet input og at den først kommer med navnet når de klikker OK
-        Optional<String> result = Navntilknap.showAndWait();
+        //Optional som gør at userinputtet kan være null eller ikke være null og udfylde betingelser de to betingelser
+        Optional<String> Userinput = Navntilknap.showAndWait();
 
-        //Hvis brugeren forsætter/skriver navnet kommer den igennem dette >
-        //Og buttonavn indeholder værdien fra brugerinputtet
-        result.ifPresent(ButtonNavn -> {
-
-            //Her kalder jeg Button NavnWishList og gir den et string som teksten.
-            NavnWishList = new Button(ButtonNavn);
-            //Her justere jeg den og gir den resten af effekterne mm.
-            Bloom bloom = new Bloom(0.33);
-            NavnWishList.setEffect(bloom);
-            NavnWishList.setStyle("-fx-background-color: green;");
-            NavnWishList.setAlignment(Pos.CENTER_LEFT);
-            NavnWishList.setFont(Font.font(20));
-            NavnWishList.setPrefWidth(290);
-            NavnWishList.setTranslateX(xpos1);
-            NavnWishList.setTranslateY(ypos1);
-            vbox.getChildren().add(NavnWishList);
-
-
-            Mulighedbox= new ChoiceBox<>();
-            Mulighedbox.getItems().addAll(Muligheder);
-            Mulighedbox.setTranslateX(xpos2);
-            Mulighedbox.setTranslateY(ypos2);
-            //Her kan jeg ikke ændre dropbox farven, min forståelse er at man skal bruge css for at at gøre det
-            Mulighedbox.setStyle("-fx-background-color: green;");
-            Mulighedbox.setEffect(bloom);
-            vbox.getChildren().add(Mulighedbox);
+        //Hvis man trykker OK får den en værdi og den køre dette>
+        if(Userinput.isPresent()){
+            //Ligemeget hvad hvis brugeren trykker ok så får userinput en værdi, derfor tjekker man om strengen ikke er tom før man fortsætter
+            if(!Userinput.get().isEmpty()){
+                //Her kalder jeg Button NavnWishList og gir den et userinput som teksten.
+                NavnWishList = new Button(Userinput.get());
+                //Her justere jeg den og gir den resten af effekterne mm.
+                Bloom bloom = new Bloom(0.33);
+                NavnWishList.setEffect(bloom);
+                NavnWishList.setStyle("-fx-background-color: green;");
+                NavnWishList.setAlignment(Pos.CENTER_LEFT);
+                NavnWishList.setFont(Font.font(20));
+                NavnWishList.setPrefWidth(290);
+                NavnWishList.setTranslateX(xpos1);
+                NavnWishList.setTranslateY(ypos1);
+                vbox.getChildren().add(NavnWishList);
 
 
-            ypos1 +=20;
-            ypos2 += 20;
-            //En on action event handler som kalder på metoden onhello og parameteren ButtonNavn. Denne metode giver jeg til all knapperne, en on action event ved tryk/klik
-            NavnWishList.setOnAction(actionEvent -> {
-                try {
-                    onHelloButtonClick1(ButtonNavn);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
-        });
+                Mulighedbox= new ChoiceBox<>();
+                Mulighedbox.getItems().addAll(Muligheder);
+                Mulighedbox.setTranslateX(xpos2);
+                Mulighedbox.setTranslateY(ypos2);
+                //Her kan jeg ikke ændre dropbox farven, min forståelse er at man skal bruge css for at at gøre det
+                Mulighedbox.setStyle("-fx-background-color: green;");
+                Mulighedbox.setEffect(bloom);
+                vbox.getChildren().add(Mulighedbox);
 
 
+                ypos1 +=20;
+                ypos2 += 20;
+                //En event handler der bliver kaldt ved tryk/klik af knappen Navnwishlist
+                NavnWishList.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            //Kalder på onhelloclick metoden og indsætter string værdien userinput i onhellos  parameter.
+                            onHelloButtonClick1(Userinput.get());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
 
+            }
+        }
     }
-
-
-
 
     @FXML
     protected void onHelloButtonClick2() throws IOException {
@@ -150,8 +139,5 @@ public class SceneController2 {
         stage.setScene(scene1);
 
     }
-
-
-
-
 }
+
