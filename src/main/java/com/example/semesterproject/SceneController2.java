@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 
@@ -38,6 +39,7 @@ public class SceneController2 {
     private Button add;
 
     @FXML private VBox vbox;
+
     public int xpos1 = -38;
     public int ypos1 = 45;
     public int xpos2 = 147;
@@ -48,8 +50,10 @@ public class SceneController2 {
 
 
 
-
-
+    private DbSql db;
+    public void setDb(DbSql dbb) {
+        this.db = dbb;
+    }
     @FXML
     protected void onHelloButtonClick1( String ButtonNavn) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));
@@ -87,6 +91,8 @@ public class SceneController2 {
             if(!Userinput.get().isEmpty()){
                 //Her kalder jeg Button NavnWishList og gir den et userinput som teksten.
                 NavnWishList = new Button(Userinput.get());
+
+                db.createWishlist(new WishList(Userinput.get(), "11-11-11"), 1);
                 //Her justere jeg den og gir den resten af effekterne mm.
                 Bloom bloom = new Bloom(0.33);
                 NavnWishList.setEffect(bloom);
@@ -97,7 +103,6 @@ public class SceneController2 {
                 NavnWishList.setTranslateX(xpos1);
                 NavnWishList.setTranslateY(ypos1);
                 vbox.getChildren().add(NavnWishList);
-
 
                 Mulighedbox= new ChoiceBox<>();
                 Mulighedbox.getItems().addAll(Muligheder);

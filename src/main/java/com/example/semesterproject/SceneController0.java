@@ -30,9 +30,8 @@ public class SceneController0 {
     private TextField mail;
 
     private DbSql db;
-
-    public SceneController0() {
-        this.db = new DbSql();
+    public void setDb(DbSql dbb) {
+        this.db = dbb;
     }
 
     //Loader FXML filen, hvor den så laver en ny scene med den loaded root node og så sætter den scene til den nuværende scene
@@ -41,8 +40,11 @@ public class SceneController0 {
         String email = mail.getText();
         String password = Password.getText();
         if(db.fetchPasswordByMail(email, password)) {
+
             //Her laver jeg en fxmlloader med stien til scene1
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene1.fxml"));
+
+
 
             //Her kunne jeg også skrive Vbox da det er the root af den her scene, men jeg skriver bare parent da det virker med det hele. Så jeg giver rooten til Vbox Her
             Parent root = loader.load();

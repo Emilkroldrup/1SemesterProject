@@ -23,6 +23,11 @@ public class SceneController3 {
 
     @FXML
     private Label Wishlist;
+
+    private DbSql db;
+    public void setDb(DbSql dbb) {
+        this.db = dbb;
+    }
     public void setButtonText(String ButtonNavn) {
         //String index starter fra 0, så derfor bruger man -1.
         if(ButtonNavn.lastIndexOf('s') !=ButtonNavn.length() - 1){

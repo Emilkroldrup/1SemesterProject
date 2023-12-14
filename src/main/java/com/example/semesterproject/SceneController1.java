@@ -25,13 +25,17 @@ public class SceneController1 {
     @FXML
     private Label JuleText;
 
-
+    private DbSql db;
+    public void setDb(DbSql dbb) {
+        this.db = dbb;
+    }
 
     @FXML
     protected void onHelloButtonClick1() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
         Parent root = loader.load();
+
 
 
         Stage stage = (Stage) Layout1.getScene().getWindow();
