@@ -21,6 +21,11 @@
                                 <Font size="31.0" />
                             </font>
                         </Label>
+                  <Button fx:id="addwishesButton" mnemonicParsing="false" onAction="#addwishesButtonClick" prefHeight="53.0" prefWidth="59.0" style="-fx-background-color: #32CD32;" text="➕" translateX="-153.0" translateY="35.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
                     </children>
                 </VBox>
             </top>
@@ -35,9 +40,6 @@
                     </children>
                 </VBox>
             </bottom>
-         <left>
-            <Button fx:id="addwishesButton" mnemonicParsing="false" onAction="#addwishesButtonClick" prefHeight="44.0" prefWidth="52.0" text="➕" BorderPane.alignment="TOP_LEFT" />
-         </left>
         </BorderPane>
     </children>
 </VBox>
