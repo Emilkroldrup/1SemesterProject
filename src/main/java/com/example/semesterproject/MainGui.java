@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MainGui extends Application {
 
-    //Loader applikationen op og start scenen, plus størrelsen og nanvnet
+    //Loader applikationen op og start scenen, plus størrelsen og navnet
     @Override
     public void start(Stage stage) throws IOException {
         // Initialize the database connection

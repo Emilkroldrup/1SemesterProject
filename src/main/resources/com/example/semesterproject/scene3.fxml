@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="Layout3" style="-fx-background-color: #b30000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.semesterproject.SceneController3">
+<VBox fx:id="Layout3" style="-fx-background-color: #b30000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.semesterproject.SceneController3">
     <children>
         <BorderPane prefHeight="812.0" prefWidth="375.0" VBox.vgrow="ALWAYS">
             <top>
@@ -35,6 +35,9 @@
                     </children>
                 </VBox>
             </bottom>
+         <left>
+            <Button fx:id="addwishesButton" mnemonicParsing="false" onAction="#addwishesButtonClick" prefHeight="44.0" prefWidth="52.0" text="➕" BorderPane.alignment="TOP_LEFT" />
+         </left>
         </BorderPane>
     </children>
 </VBox>
