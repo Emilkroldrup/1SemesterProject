@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,11 +20,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class SceneController2 {
+public class SceneController2 implements Initializable {
 
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link variblem til elementet i fxml filen, når de er private
     @FXML
@@ -48,14 +51,16 @@ public class SceneController2 {
     public ChoiceBox<String> Mulighedbox;
     public String[] Muligheder = {"Edit", "Delete"};
 
-
-
     private DbSql db;
-    public void setDb(DbSql dbb) {
-        this.db = dbb;
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // You can initialize and retrieve the DbSql instance directly here
+        this.db = Dbsqlgui.getDb();
     }
+
+
     @FXML
     protected void onHelloButtonClick1( String ButtonNavn) throws IOException {
+        System.out.println("DEBUG: SceneController2 - addNewButton - db: " + db);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));
         Parent root = loader.load();
 

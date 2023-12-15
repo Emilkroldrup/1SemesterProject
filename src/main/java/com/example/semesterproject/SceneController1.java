@@ -2,6 +2,7 @@ package com.example.semesterproject;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SceneController1 {
+public class SceneController1  implements Initializable {
 
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link dem, når de er private. Her ville det forbinde det her element fra scene builder til koden om Layout1
     @FXML private BorderPane Layout1;
@@ -25,9 +28,13 @@ public class SceneController1 {
     @FXML
     private Label JuleText;
 
+
     private DbSql db;
-    public void setDb(DbSql dbb) {
-        this.db = dbb;
+
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // You can initialize and retrieve the DbSql instance directly here
+        this.db = Dbsqlgui.getDb();
     }
 
     @FXML

@@ -13,8 +13,10 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.io.IOException;
 
-
-public class SceneController0 {
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
+public class SceneController0 implements Initializable {
 
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link dem, når de er private
     @FXML
@@ -30,8 +32,11 @@ public class SceneController0 {
     private TextField mail;
 
     private DbSql db;
-    public void setDb(DbSql dbb) {
-        this.db = dbb;
+
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // You can initialize and retrieve the DbSql instance directly here
+        this.db = Dbsqlgui.getDb();
     }
 
     //Loader FXML filen, hvor den så laver en ny scene med den loaded root node og så sætter den scene til den nuværende scene

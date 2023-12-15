@@ -9,6 +9,7 @@ public class Dbsqlgui {
     }
 
     public static DbSql getDb() {
+        System.out.println("DEBUG: Dbsqlgui - getDb - db: " + db);
         if (db == null) {
             throw new IllegalStateException("Database not initialized. Call initializeDb before accessing.");
         }
@@ -18,8 +19,11 @@ public class Dbsqlgui {
     public static void initializeDb(DbSql dbInstance) {
         if (db == null) {
             db = dbInstance;
+            System.out.println("DEBUG: Dbsqlgui - Database initialized.");
         } else {
-            throw new IllegalStateException("Database already initialized.");
+            System.out.println("DEBUG: Dbsqlgui - Database reinitialized.");
+            // If reinitialization is allowed, you can update the existing instance.
+            db = dbInstance;
         }
     }
 }
