@@ -42,20 +42,6 @@ public class SceneController3  {
     @FXML
     private Button addwishesButton;
 
-    @FXML
-    private Label label1;
-
-    @FXML
-    private Label label2;
-
-    @FXML
-    private Label label3;
-
-    @FXML
-    private Label label4;
-
-    @FXML
-    private VBox vbox2;
 
     @FXML
     private Label Wishlist;
@@ -65,8 +51,6 @@ public class SceneController3  {
     public int xpos2 = 147;
     public int ypos2 = 2;
 
-    @FXML
-    private VBox vbo1;
 
     private DbSql db;
 
