@@ -126,6 +126,22 @@ public class DbSql {
         }
     }
 
+    public String getNameById(int id) throws SQLException {
+        String name = null;
+        String sql = "SELECT navn FROM bruger where brugerid = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()){
+                    name = rs.getString("navn");
+                }
+            }
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return name;
+    }
+
     public int fetchBrugerIdByName(String name) {
         int brugerId = -1;
         String sql = "SELECT brugerId FROM bruger WHERE navn = ?";
@@ -151,7 +167,7 @@ public class DbSql {
             pstmt.setString(1, wishlistName);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    wishlistId = rs.getInt("listeNavn");
+                    wishlistId = rs.getInt("wishListId");
                 }
             }
         }   catch (SQLException throwables) {
@@ -196,6 +212,23 @@ public class DbSql {
         }
 
         return wishId;
+    }
+
+    public int fetchWishIdByWishName(String wishName){
+        int Id = -1;
+        String sql = "SELECT wishId FROM wish WHERE wishContent = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, wishName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Id = rs.getInt("wishId");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return Id;
     }
 
     public boolean fetchPasswordByMail(String mail, String pass) {

@@ -54,25 +54,20 @@ public class SceneController2 {
     public ChoiceBox<String> Mulighedbox;
     public String[] Muligheder = {"Edit", "Delete"};
 
-    GemData data = GemData.getInstance();
 
-    public static int counter = 0;
-
-
-    Optional<String> Userinput;
-
+    public Optional<String> Userinput;
 
     private DbSql db;
     private Connection connection;
 
-    public void initialize()  {
+    public void initialize() {
         this.db = Dbsqlgui.getDb();
-        this.connection= db.getConnection();
-        try{
+        this.connection = db.getConnection();
+        try {
             String sql = "SELECT listeNavn FROM WishList WHERE brugerId = " + UserSession.getInstance().getUserId();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 NavnWishList = new Button(rs.getString("listeNavn"));
                 Bloom bloom = new Bloom(0.33);
                 NavnWishList.setEffect(bloom);
@@ -84,37 +79,38 @@ public class SceneController2 {
                 NavnWishList.setTranslateY(ypos1);
                 vbox.getChildren().add(NavnWishList);
 
-                Mulighedbox= new ChoiceBox<>();
+                Mulighedbox = new ChoiceBox<>();
                 Mulighedbox.getItems().addAll(Muligheder);
                 Mulighedbox.setTranslateX(xpos2);
                 Mulighedbox.setTranslateY(ypos2);
-                //Her kan jeg ikke ændre dropbox farven, min forståelse er at man skal bruge css for at at gøre det
                 Mulighedbox.setStyle("-fx-background-color: green;");
                 Mulighedbox.setEffect(bloom);
                 vbox.getChildren().add(Mulighedbox);
+
+                String listeNavnValue = rs.getString("listeNavn");
                 NavnWishList.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         try {
-                            //Kalder på onhelloclick metoden og indsætter string værdien userinput i onhellos  parameter.
-                            onHelloButtonClick1(event, Userinput.get());
+                            // Use the stored value instead of rs.getString("listeNavn")
+                            onHelloButtonClick1(event, listeNavnValue);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 });
-
-
             }
-        } catch (SQLException throwables){
+
+            rs.close();
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     @FXML
     protected void onHelloButtonClick1( ActionEvent event, String ButtonNavn) throws IOException {
+        WishlistSession.getInstance().setWishlistId(db.fetchWishlistIdByName(ButtonNavn));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));
         Parent root = loader.load();
-
         //Her kalder jeg på scene3 controller og loader den
         SceneController3 scene3Controller = loader.getController();
         //Loader bare Navnet på knappen og sætter det ind på scene3's controller. <
@@ -124,6 +120,7 @@ public class SceneController2 {
         Scene scene3 = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene3);
+
 
     }
     @FXML

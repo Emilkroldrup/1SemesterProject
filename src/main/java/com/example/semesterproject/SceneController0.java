@@ -9,7 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.sql.SQLException;
 import java.io.IOException;
 
@@ -42,8 +43,8 @@ public class SceneController0 implements Initializable {
     //Loader FXML filen, hvor den så laver en ny scene med den loaded root node og så sætter den scene til den nuværende scene
     @FXML
     protected void onHelloButtonClick() throws IOException{
-        String email = mail.getText();
-        String password = Password.getText();
+      String email = mail.getText();
+       String password = Password.getText();
         int userId = -1;
         if(db.fetchPasswordByMail(email, password)) {
             userId = db.fetchUserIdByMail(email);
@@ -64,6 +65,19 @@ public class SceneController0 implements Initializable {
 
     //Funktion skal blive kaldt med det samme, så når man skriver det første bogstav at der er funktionen allerede blevet kaldt
     public void initialize()  {
+        //En event handler som Password får, ved tryk af Enter
+
+            Password.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    //Kalder på onhelloclick metoden
+                    try {
+                        onHelloButtonClick();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        
 
         //tilføjer en listener til passwords tekstfelt
         Password.textProperty().addListener((observable, oldValue, newValue) -> {

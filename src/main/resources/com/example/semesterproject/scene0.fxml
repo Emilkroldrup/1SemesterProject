@@ -25,8 +25,8 @@
                                 <Font size="29.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="mail" layoutY="52.0" />
-                  <PasswordField fx:id="Password" layoutY="127.0" />
+                        <TextField fx:id="mail" layoutY="52.0" onAction="#initialize" promptText="email" />
+                  <PasswordField fx:id="Password" layoutY="127.0" promptText="password" />
                     </children>
                 </AnchorPane>
             </children>

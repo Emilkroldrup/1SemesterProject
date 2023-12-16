@@ -5,7 +5,6 @@ public class UserSession {
     private int userId;
 
     private UserSession() {
-        // private constructor to enforce singleton pattern
     }
 
     public static UserSession getInstance() {
