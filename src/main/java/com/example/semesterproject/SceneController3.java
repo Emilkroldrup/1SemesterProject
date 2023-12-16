@@ -7,9 +7,11 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.Bloom;
@@ -22,7 +24,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class SceneController3 implements Initializable {
+public class SceneController3 implements Initializable  {
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link dem, når de er private.
     @FXML
     private VBox Layout3;
@@ -31,20 +33,44 @@ public class SceneController3 implements Initializable {
     private Button Back;
 
     @FXML
+    private VBox vbox1;
+
+    @FXML
     private Button addwishesButton;
 
     @FXML
-    private VBox vbox;
+    private Label label1;
+
+    @FXML
+    private Label label2;
+
+    @FXML
+    private Label label3;
+
+    @FXML
+    private Label label4;
+
+    @FXML
+    private VBox vbox2;
 
     @FXML
     private Label Wishlist;
 
-    private DbSql db;
+
 
     public int xpos1 = -38;
     public int ypos1 = 45;
+    public int xpos2 = 147;
+    public int ypos2 = 2;
+    public ChoiceBox<String> choicebox;
+    public String[] choices = {"Edit", "Delete"};
+
+    @FXML
+    private VBox vbox3;
+
+
+    private DbSql db;
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // You can initialize and retrieve the DbSql instance directly here
         this.db = Dbsqlgui.getDb();
     }
     public void setButtonText(String ButtonNavn) {
@@ -68,11 +94,8 @@ public class SceneController3 implements Initializable {
 
         if (userInput.isPresent()) {
 
-            if (userInput.isEmpty()) {
-
-
+            if (!userInput.isEmpty()) {
                 addwishesButton = new Button(userInput.get());
-
                 db.addWishToWishlist(Integer.parseInt(userInput.get()), Integer.parseInt(userInput.get()));
 
                 Bloom bloom = new Bloom(0.33);
@@ -83,25 +106,41 @@ public class SceneController3 implements Initializable {
                 addwishesButton.setPrefWidth(290);
                 addwishesButton.setTranslateX(xpos1);
                 addwishesButton.setTranslateY(ypos1);
-                vbox.getChildren().add(addwishesButton);
+                vbox2.getChildren().add(addwishesButton);
 
-                xpos1 += 20;
-                ypos1 += 20;
+                choicebox= new ChoiceBox<>();
+                choicebox.getItems().addAll(choices);
+                choicebox.setTranslateX(xpos2);
+                choicebox.setTranslateY(ypos2);
+                choicebox.setStyle("-fx-background-color: green;");
+                choicebox.setEffect(bloom);
+                vbox2.getChildren().add(choicebox);
+
+                addwishesButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        //Kalder på newWishAppear metoden og indsætter string værdien userinput i onhellos  parameter.
+                        newWishAppear(userInput.get());
+                    }
+                });
 
             }
-
         }
+    }
+    @FXML
+    protected void newWishAppear(String labelNavn) {
+
     }
 
 
 
     @FXML
-    protected void onHelloButtonClick2()throws IOException  {
+    protected void onHelloButtonClick2(ActionEvent event)throws IOException  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
         Parent root = loader.load();
 
         Scene scene2 = new Scene(root);
-        Stage stage = (Stage) Layout3.getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene2);
     }
 }

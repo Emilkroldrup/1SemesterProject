@@ -29,6 +29,7 @@ public class Main {
         db.addWishToWishlist(db.fetchWishIdsByUserId(db.fetchBrugerIdByName("Emil")), db.fetchWishlistIdByName("Emil") );
 
         System.out.println(db.fetchPasswordByMail("mads-gmail.dk", "mads123"));
+        System.out.println(db.fetchUserIdByMail("oliver-gmail.com"));
 
 
 

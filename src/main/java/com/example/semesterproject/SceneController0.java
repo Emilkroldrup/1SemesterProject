@@ -35,7 +35,7 @@ public class SceneController0 implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // You can initialize and retrieve the DbSql instance directly here
+
         this.db = Dbsqlgui.getDb();
     }
 
@@ -44,12 +44,12 @@ public class SceneController0 implements Initializable {
     protected void onHelloButtonClick() throws IOException{
         String email = mail.getText();
         String password = Password.getText();
+        int userId = -1;
         if(db.fetchPasswordByMail(email, password)) {
-
+            userId = db.fetchUserIdByMail(email);
+            UserSession.getInstance().setUserId(userId);
             //Her laver jeg en fxmlloader med stien til scene1
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene1.fxml"));
-
-
 
             //Her kunne jeg også skrive Vbox da det er the root af den her scene, men jeg skriver bare parent da det virker med det hele. Så jeg giver rooten til Vbox Her
             Parent root = loader.load();
@@ -64,6 +64,7 @@ public class SceneController0 implements Initializable {
 
     //Funktion skal blive kaldt med det samme, så når man skriver det første bogstav at der er funktionen allerede blevet kaldt
     public void initialize()  {
+
         //tilføjer en listener til passwords tekstfelt
         Password.textProperty().addListener((observable, oldValue, newValue) -> {
             //Her bruger jeg newvalue aka tastaturens nyeste input til at fjerne mellemrum input.

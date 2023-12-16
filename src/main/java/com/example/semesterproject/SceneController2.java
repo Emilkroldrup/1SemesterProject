@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,12 +22,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class SceneController2 implements Initializable {
+public class SceneController2 {
 
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link variblem til elementet i fxml filen, når de er private
     @FXML
@@ -42,7 +46,6 @@ public class SceneController2 implements Initializable {
     private Button add;
 
     @FXML private VBox vbox;
-
     public int xpos1 = -38;
     public int ypos1 = 45;
     public int xpos2 = 147;
@@ -51,16 +54,64 @@ public class SceneController2 implements Initializable {
     public ChoiceBox<String> Mulighedbox;
     public String[] Muligheder = {"Edit", "Delete"};
 
+    GemData data = GemData.getInstance();
+
+    public static int counter = 0;
+
+
+    Optional<String> Userinput;
+
+
     private DbSql db;
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // You can initialize and retrieve the DbSql instance directly here
+    private Connection connection;
+
+    public void initialize()  {
         this.db = Dbsqlgui.getDb();
+        this.connection= db.getConnection();
+        try{
+            String sql = "SELECT listeNavn FROM WishList WHERE brugerId = " + UserSession.getInstance().getUserId();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                NavnWishList = new Button(rs.getString("listeNavn"));
+                Bloom bloom = new Bloom(0.33);
+                NavnWishList.setEffect(bloom);
+                NavnWishList.setStyle("-fx-background-color: green;");
+                NavnWishList.setAlignment(Pos.CENTER_LEFT);
+                NavnWishList.setFont(Font.font(20));
+                NavnWishList.setPrefWidth(290);
+                NavnWishList.setTranslateX(xpos1);
+                NavnWishList.setTranslateY(ypos1);
+                vbox.getChildren().add(NavnWishList);
+
+                Mulighedbox= new ChoiceBox<>();
+                Mulighedbox.getItems().addAll(Muligheder);
+                Mulighedbox.setTranslateX(xpos2);
+                Mulighedbox.setTranslateY(ypos2);
+                //Her kan jeg ikke ændre dropbox farven, min forståelse er at man skal bruge css for at at gøre det
+                Mulighedbox.setStyle("-fx-background-color: green;");
+                Mulighedbox.setEffect(bloom);
+                vbox.getChildren().add(Mulighedbox);
+                NavnWishList.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        try {
+                            //Kalder på onhelloclick metoden og indsætter string værdien userinput i onhellos  parameter.
+                            onHelloButtonClick1(event, Userinput.get());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
+
+            }
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
     }
 
-
     @FXML
-    protected void onHelloButtonClick1( String ButtonNavn) throws IOException {
-        System.out.println("DEBUG: SceneController2 - addNewButton - db: " + db);
+    protected void onHelloButtonClick1( ActionEvent event, String ButtonNavn) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene3.fxml"));
         Parent root = loader.load();
 
@@ -71,10 +122,10 @@ public class SceneController2 implements Initializable {
         scene3Controller.setButtonText(ButtonNavn);
 
         Scene scene3 = new Scene(root);
-        Stage stage = (Stage) Layout2.getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene3);
-    }
 
+    }
     @FXML
     private void addNewButton() {
         //Her oprettet man et textinput dialog, som brugeren skal skrive navnet på
@@ -88,7 +139,7 @@ public class SceneController2 implements Initializable {
 
         //Her bruger vi bare showandwait,altså så brugeren kan få skrevet input og at den først kommer med navnet når de klikker OK
         //Optional som gør at userinputtet kan være null eller ikke være null og udfylde betingelser de to betingelser
-        Optional<String> Userinput = Navntilknap.showAndWait();
+        Userinput = Navntilknap.showAndWait();
 
         //Hvis man trykker OK får den en værdi og den køre dette>
         if(Userinput.isPresent()){
@@ -96,9 +147,9 @@ public class SceneController2 implements Initializable {
             if(!Userinput.get().isEmpty()){
                 //Her kalder jeg Button NavnWishList og gir den et userinput som teksten.
                 NavnWishList = new Button(Userinput.get());
-
-                db.createWishlist(new WishList(Userinput.get(), "11-11-11"), 1);
-                //Her justere jeg den og gir den resten af effekterne mm.
+                WishList wl = new WishList(Userinput.get(), "11-11-11");
+                db.createWishlist(wl, UserSession.getInstance().getUserId());
+                //Her justerer jeg den og gir den resten af effekterne mm.
                 Bloom bloom = new Bloom(0.33);
                 NavnWishList.setEffect(bloom);
                 NavnWishList.setStyle("-fx-background-color: green;");
@@ -119,15 +170,12 @@ public class SceneController2 implements Initializable {
                 vbox.getChildren().add(Mulighedbox);
 
 
-                ypos1 +=20;
-                ypos2 += 20;
                 //En event handler der bliver kaldt ved tryk/klik af knappen Navnwishlist
                 NavnWishList.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
                     public void handle(ActionEvent event) {
                         try {
                             //Kalder på onhelloclick metoden og indsætter string værdien userinput i onhellos  parameter.
-                            onHelloButtonClick1(Userinput.get());
+                            onHelloButtonClick1(event, Userinput.get());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -150,4 +198,3 @@ public class SceneController2 implements Initializable {
 
     }
 }
-

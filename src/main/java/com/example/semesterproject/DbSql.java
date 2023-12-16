@@ -1,5 +1,11 @@
 package com.example.semesterproject;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.effect.Bloom;
+import javafx.scene.text.Font;
+
 import java.sql.*;
 
 public class DbSql {
@@ -14,7 +20,9 @@ public class DbSql {
             throwables.printStackTrace();
         }
     }
-
+    public Connection getConnection() {
+        return connection;
+    }
     public void createUser(User u) {
         try (PreparedStatement pstmt = connection.prepareStatement(
                 "INSERT INTO bruger (navn, email, kodeord) VALUES (?, ?, ?)")) {
@@ -190,15 +198,15 @@ public class DbSql {
         return wishId;
     }
 
-    public boolean fetchPasswordByMail(String mail, String pass){
+    public boolean fetchPasswordByMail(String mail, String pass) {
         String password = null;
         String sql = "SELECT kodeord FROM bruger WHERE email = ?";
 
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, mail);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()){
+                if (rs.next()) {
                     password = rs.getString("kodeord");
                 }
             }
@@ -208,6 +216,23 @@ public class DbSql {
         return password != null && password.equals(pass);
     }
 
+    public int fetchUserIdByMail(String mail){
+        int userId = -1;
+        String sql = "SELECT brugerId FROM bruger WHERE email = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+            pstmt.setString(1, mail);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()){
+                    userId = rs.getInt("brugerId");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return userId;
+    }
 
 
 }
