@@ -1,41 +1,78 @@
-
 @startuml
 'https://plantuml.com/class-diagram
 
 class User {
-   String name;
-   String email;
-   String password;
+   - String name
+   - String email
+   - String password
+   + User()
+   + User(String, String, String)
+   + String getName()
+   + void setName(String)
+   + String getEmail()
+   + void setEmail(String)
+   + String getPassword()
+   + void setPassword(String)
+   + String toString()
 
 }
 class Wish {
-   String dateCreated;
-   String recipient;
-   String wishContent;
+   - String dateCreated;
+   - String recipient;
+   - String wishContent;
+   + Wish()
+   + Wish(String, String, String)
+   + void addWish(int, String, String, String)
+   + String getDateCreated()
+   + void setDateCreated()
+   + String getRecipient()
+   + void setRecipient()
+   + String getWishContent()
+   + void setWishContent()
+   + String toString()
 
-   addWish();
 }
 class Wishlist {
-    String listName;
-    String creationDate;
-    List <Wish> Wishes;
+    - String listName;
+    - String creationDate;
+    - List <Wish> Wishes;
+    + WishList()
+    + WishList(String, String)
+    + void addWish(Wish)
+    + void removeWish()
+    + List<Wish>getWishes()
+    + String getListName()
+    + void setListName()
+    + String getCreationDate()
+    + void setCreationDate()
+    + void setWishes()
+    + String toString()
 
-    vælgØnskeListe();
-    seAlleØnskerPåListen();
-    tilføjØnskeTilListe();
-    fjernØnskeFraListe();
-    købt();
 }
 class DbSql {
-    Connection connection;
-    Statement stmt;
+    - Connection connection;
+    + DbSql()
+    + Connection getConnection()
+    + void createUser(User)
+    + void createWish(Wish)
+    + void removeWish(int)
+    + void editWish(int, String, String)
+    + void createWishList(WishList, int)
+    + void removeWishList(int)
+    + void addWishToWishList(int, int)
+    + String getNameById(int)
+    + int fetchBrugerIdByName(String)
+    + int fetchWishListIdByName(String)
+    + int fetchWishIdsByUserId(int)
+    + int fetchWishIdsByWishName(String)
+    + boolean fetchPasswordByMail(String, String)
+    + int fetchUserIdByMail(String)
+
 }
+
 Wishlist "1" o-- "many" Wish : aggregation
-   DbSql --> Wishlist : One way association
-   Bruger <-- DbSql : One way association
-   Bruger -- Wishlist
-
-@enduml
-
+DbSql --> Wishlist : One way association
+DbSql --> User : One way association
+User "1" -- "*" Wishlist : association
 
 @enduml

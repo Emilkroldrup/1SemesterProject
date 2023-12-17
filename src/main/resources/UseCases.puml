@@ -2,39 +2,33 @@
 left to right direction
 actor "User" as user
 
-usecase (Add a Christmas Wish) as UC1
-usecase (View Christmas Wishes) as UC2
-usecase (Edit a Christmas Wish) as UC3
-usecase (Delete a Christmas Wish) as UC4
-usecase (Search for a Christmas Wish) as UC5
+usecase (Tilføj et ønske) as UC1
+usecase (Vis ønsker) as UC2
+usecase (Rediger dit ønske) as UC3
+usecase (Slet et ønske) as UC4
 
-user --> UC1 : Adds wish
-user --> UC2 : Views wishes
-user --> UC3 : Edits wish
-user --> UC4 : Deletes wish
-user --> UC5 : Searches wishes
+user --> UC1 : Tilføjer et ønske
+user --> UC2 : Viser ønsker
+user --> UC3 : Redigerer et ønske
+user --> UC4 : Sletter et ønske
 
 note right of UC1
-  Specify recipient's name
-  Enter wish details
-  Add special notes
+  Vælg ønkeliste / lav en ny liste
+  Indtast ønske
 end note
 
 note right of UC2
-  View list of wishes
-  Filter by criteria
-  Sort wishes
+  Vis liste af brugerens ønsker
 end note
 
 note right of UC3
-  Select a wish
-  Edit details
-  Save changes
+  Vælg et ønske
+  Rediger detaljer
 end note
 
 note right of UC4
-  Select a wish
-  Confirm deletion
+  Vælg et ønske
+  Vælg "Delete"
 end note
 
 note right of UC5

@@ -17,13 +17,24 @@ public class Main {
 
         WishList list1 = new WishList("test", "1/1/1");
         db.createWishlist(list1, db.fetchBrugerIdByName("Mikkel"));
+        WishList list2 = new WishList("test", "1/1/1");
+        db.createWishlist(list2, db.fetchBrugerIdByName("Mads"));
+        
+        //Fjerner ønskeliste
+        db.removeWishlist(db.fetchWishlistIdByName("list2"));
 
-        Wish w1 = new Wish("1/1/1", "Mikkel", "Et Stort kram fra susanne");
-        Wish w2 = new Wish("2/2/2", "Emil", "To store kram fra Susanne");
+        //Opetter ønske
+        Wish w1 = new Wish("1/1/1", "Mikkel", "Et Stort kram");
+        Wish w2 = new Wish("2/2/2", "Emil", "To store kram");
         db.createWish(w1);
         db.createWish(w2);
+        //Fjerne ønske
+        db.removeWish(1);
+        //Redigere ønske
+        db.editWish(2, "10/10/10", "Sej cykel");
 
-        WishList list2 = new WishList("Emils ønsker", "2/2/2");
+
+        WishList list3 = new WishList("Emils ønsker", "2/2/2");
         db.createWishlist(list2, db.fetchBrugerIdByName("Emil"));
 
         db.addWishToWishlist(db.fetchWishIdsByUserId(db.fetchBrugerIdByName("Emil")), db.fetchWishlistIdByName("Emil") );

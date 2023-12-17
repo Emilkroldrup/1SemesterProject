@@ -175,26 +175,6 @@ public class DbSql {
         }
         return wishlistId;
     }
-/*
-    public List<Integer> fetchWishIdsByUserId(int userId) {
-        List<Integer> wishIds = new ArrayList<>();
-        String sql = "SELECT w.wishId FROM Wish w INNER JOIN WishList wl ON w.wishListId = wl.wishListId WHERE wl.brugerId = ?";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    wishIds.add(rs.getInt("wishId"));
-                }
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return wishIds;
-    }
-
- */
 
     public int fetchWishIdsByUserId(int userId) {
         int wishId = -1;
