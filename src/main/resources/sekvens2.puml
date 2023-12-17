@@ -1,0 +1,20 @@
+@startuml
+
+actor       Bruger       as Foo1
+control     login     as Foo3
+entity      tilføjØnskeTilListe      as Foo4
+database    DbSql    as Foo5
+entity      Wish        as Foo6
+queue       query       as Foo7
+
+Foo1 -> Foo3 : To login
+Foo3 -> Foo5 : To Database
+Foo5 -> Foo1 : Giver adgang
+Foo1 -> Foo4 : tilføjØnskeTilListe
+Foo4 -> Foo5 : henter info
+Foo5 -> Foo7 : query til at oprette ønsket
+Foo4 -> Foo6 : opretter ønske funktion
+Foo6 -> Foo4 : vender tilbage til Wishlist funktionen tilføjØnskeTilListe
+Foo4 -> Foo5 : skaber forbindelse til db
+
+@enduml

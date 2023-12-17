@@ -32,11 +32,5 @@ public class Main {
         System.out.println(db.fetchUserIdByMail("oliver-gmail.com"));
 
 
-
-
-
-
-
-
     }
 }

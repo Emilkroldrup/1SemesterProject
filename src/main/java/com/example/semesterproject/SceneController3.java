@@ -31,17 +31,10 @@ public class SceneController3  {
 
 
     @FXML
-    private VBox Layout3;
-
-    @FXML
-    private Button Back;
-
-    @FXML
     private VBox vbox1;
 
     @FXML
     private Button addwishesButton;
-
 
     @FXML
     private Label Wishlist;

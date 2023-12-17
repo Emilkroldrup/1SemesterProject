@@ -1,0 +1,23 @@
+@startuml
+class User {
+  UserID
+  Name
+  Email
+}
+
+class Wish {
+  WishID
+  Content
+  DateCreated
+  Recipient
+}
+
+class WishList {
+  WishListID
+  Name
+  CreationDate
+}
+
+User "1" -- "*" WishList
+WishList "1" -- "*" Wish
+@enduml
