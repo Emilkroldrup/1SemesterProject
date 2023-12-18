@@ -2,6 +2,7 @@
 'https://plantuml.com/activity-diagram-beta
 
 start
+:Opret bruger;
 :Logger ind;
 :Åbner forsiden;
 :Gaveindkøb;
@@ -12,6 +13,7 @@ if (Har ønskeliste(r)) then (yes)
         case(Fjern ønskeliste)
             :Fjern ønskeliste;
             :(Har ønskeliste(r);
+            end
         case(Opret ønskeliste)
             :Opretter ønskeliste;
     endswitch

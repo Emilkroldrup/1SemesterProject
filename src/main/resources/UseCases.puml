@@ -31,9 +31,4 @@ note right of UC4
   Vælg "Delete"
 end note
 
-note right of UC5
-  Enter search criteria
-  View search results
-end note
-
 @enduml

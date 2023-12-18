@@ -4,14 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.Bloom;
 
@@ -21,31 +19,22 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 
 public class SceneController2 {
 
     //Når der står @FXML er det fordi det i fxml filen og bliver brugt til asscoricere tingene/link variblem til elementet i fxml filen, når de er private
-    @FXML
-    private Label Wishlist;
 
     @FXML
     private BorderPane Layout2;
 
-    @FXML
-    private Button Back;
-
-    @FXML
-    private Button add;
-
     @FXML private VBox vbox;
+
     public int xpos1 = -38;
     public int ypos1 = 45;
     public int xpos2 = 147;

@@ -1,20 +1,35 @@
 @startuml
+'https://plantuml.com/sequence-diagram
 
-actor       Bruger       as Foo1
-control     login     as Foo3
-entity      tilføjØnskeTilListe      as Foo4
-database    DbSql    as Foo5
-entity      Wish        as Foo6
-queue       query       as Foo7
+actor Bruger
+participant "System" as System
+database "Database" as Db
 
-Foo1 -> Foo3 : To login
-Foo3 -> Foo5 : To Database
-Foo5 -> Foo1 : Giver adgang
-Foo1 -> Foo4 : tilføjØnskeTilListe
-Foo4 -> Foo5 : henter info
-Foo5 -> Foo7 : query til at oprette ønsket
-Foo4 -> Foo6 : opretter ønske funktion
-Foo6 -> Foo4 : vender tilbage til Wishlist funktionen tilføjØnskeTilListe
-Foo4 -> Foo5 : skaber forbindelse til db
+Bruger -> System: Login
+activate System
+System -> Db: Godkend Bruger
+activate Db
+Db -> System: Bruger godkendt
+deactivate Db
+System -> Bruger: Vis start side
+deactivate System
+
+Bruger -> System: Vis ønskelister
+activate System
+System -> Db: Hent ønskelister
+activate Db
+Db -> System: Send ønskelister tilbage
+deactivate Db
+System -> Bruger: Fremvis ønskelister
+deactivate System
+
+Bruger -> System: Tilføj ønske til liste
+activate System
+System -> Db: Tilføj ønske
+activate Db
+Db -> System: Ønske tilføjet
+deactivate Db
+System -> Bruger: Bekræft tilføjelse
+deactivate System
 
 @enduml

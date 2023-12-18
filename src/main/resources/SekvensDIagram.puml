@@ -6,7 +6,15 @@ autonumber
 header System sekvens diagram
 actor Bruger
 
-Bruger -> System: Login
+alt Opret bruger
+    Bruger -> System: Oprette bruger
+    Bruger -> System: Skriv mail og password
+    Bruger <-- System: Bruger oprettet
+    end
+
+Bruger <-- System: Login page
+Bruger -> System: Skriver mail og password
+Bruger -> System: Bruger trykker login
 Bruger <-- System: Viser forsiden
 
 Bruger -> System: Gaveindkøb
@@ -24,15 +32,20 @@ alt Fjern ønskeliste
     Bruger <-- System: Fjerner ønskeliste
     end
 
+
+
 Bruger -> System: Vælg ønskeliste
 Bruger <-- System: Viser valgte ønskeliste
 
+
+
+
 alt Tilføj ønske
-    loop Ønsker tilføj
         Bruger -> System: Tilføj ønske
+            Bruger -> System: Giv ønsket et navn
         Bruger <-- System: Ønske tilføjet
         end
-    end
+
 
 alt Fjern ønske
     Bruger -> System: Fjern ønske
@@ -41,18 +54,9 @@ alt Fjern ønske
 
 alt Rediger ønske
     Bruger -> System: Rediger valgte ønske
-    Bruger <-- System: Ændre ønsket
+    Bruger <-- System: Ændrer ønsket
+end
 
-alt Søg Ønske
-    Bruger -> System: Søg på ønske
-    Bruger <-- System: Viser det søgte ønske
-    end
 
-alt Ønske købt
-    loop
-        Bruger -> System: Trykker på boks ved købt ønske
-        Bruger <-- System: Flueben i boks ved købt ønske
-        end
-    end
 
 @enduml

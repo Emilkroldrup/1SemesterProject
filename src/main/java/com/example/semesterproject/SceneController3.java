@@ -1,11 +1,9 @@
 package com.example.semesterproject;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,8 +20,7 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.util.Optional;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 
 public class SceneController3  {
@@ -33,8 +30,6 @@ public class SceneController3  {
     @FXML
     private VBox vbox1;
 
-    @FXML
-    private Button addwishesButton;
 
     @FXML
     private Label Wishlist;
