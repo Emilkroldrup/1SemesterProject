@@ -96,8 +96,8 @@ public class SceneController3  {
 
         TextInputDialog Navntilknap = new TextInputDialog();
         Navntilknap.setTitle("Ønske Navn");
-        Navntilknap.setHeaderText("Skriv navnet på din ønskeliste☃");
-        Navntilknap.setContentText("Navn:");
+        Navntilknap.setHeaderText("Skriv navnet på dit ønske☃");
+        Navntilknap.setContentText("Ønske:");
         Userinput = Navntilknap.showAndWait();
 
         if (Userinput.isPresent()) {

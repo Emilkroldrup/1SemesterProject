@@ -80,7 +80,6 @@ public class SceneController2 {
                 NavnWishList.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         try {
-                            // Use the stored value instead of rs.getString("listeNavn")
                             onHelloButtonClick1(event, listeNavnValue);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -102,7 +101,6 @@ public class SceneController2 {
         Parent root = loader.load();
         //Her kalder jeg på scene3 controller og loader den
         SceneController3 scene3Controller = loader.getController();
-        //Loader bare Navnet på knappen og sætter det ind på scene3's controller. <
         // Jeg kalder også på scene3s metode setbuttontext og indsætter buttonnavn værdien i dens parameter
         scene3Controller.setButtonText(ButtonNavn);
 
@@ -110,10 +108,9 @@ public class SceneController2 {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene3);
 
-
     }
     @FXML
-    private void addNewButton() {
+    public void addNewButton() {
         //Her oprettet man et textinput dialog, som brugeren skal skrive navnet på
         TextInputDialog Navntilknap = new TextInputDialog();
         //Navn på textdialog
